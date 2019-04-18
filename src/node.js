@@ -2,6 +2,8 @@ import tty from 'tty'
 import util from 'util'
 import humanize from 'ms'
 
+const ms = humanize.default
+
 const colors = [6, 2, 3, 4, 5, 1]
 
 /**
@@ -36,7 +38,7 @@ const inspectOpts = Object.keys(process.env).filter(key => {
   return obj
 }, {})
 
-/** @type {Env} */
+/** @type {_debug.Env} */
 const NodeEnv = {
   init,
   log,
@@ -62,7 +64,7 @@ function useColors() {
 /**
  * Adds ANSI color escape codes if enabled.
  * @param {!Array} args
- * @this {_debug.DebugContext}
+ * @this {_debug.DebugFunction}
  */
 function formatArgs(args) {
   const { namespace, useColors, color, diff } = this
@@ -73,7 +75,7 @@ function formatArgs(args) {
     const prefix = `  ${colorCode};1m${namespace} \u001B[0m`
 
     args[0] = prefix + args[0].split('\n').join('\n' + prefix)
-    args.push(colorCode + 'm+' + humanize(diff) + '\u001B[0m')
+    args.push(colorCode + 'm+' + ms(diff) + '\u001B[0m')
   } else {
     args[0] = getDate() + namespace + ' ' + args[0]
   }
@@ -151,14 +153,10 @@ function init(debug) {
 // }
 
 /**
- * @suppress {nonStandardJsDoc}
+ * @suppress {nonStandardJsDocs}
  * @typedef {import('.').DebugFunction} _debug.DebugFunction
  */
 /**
- * @suppress {nonStandardJsDoc}
- * @typedef {import('.').DebugContext} _debug.DebugContext
- */
-/**
- * @suppress {nonStandardJsDoc}
+ * @suppress {nonStandardJsDocs}
  * @typedef {import('.').Env} _debug.Env
  */

@@ -9,6 +9,7 @@ class Debug {
     this.inspectOpts = env.inspectOpts
     this.log = env.log
     this.save = env.save
+    this.init = env.init
 
     /**
      * Active `debug` instances.
@@ -17,12 +18,12 @@ class Debug {
     this.instances = []
     /**
 	   * The currently active debug mode names.
-     * @type {Array<string>}
+     * @type {Array<!RegExp>}
 	   */
     this.names = []
     /**
 	   * The currently active names to skip.
-     * @type {Array<string>}
+     * @type {Array<!RegExp>}
 	   */
     this.skips = []
 
@@ -31,16 +32,17 @@ class Debug {
      * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
      */
     this.formatters = {}
-
+  }
+  createDebug() {
     const debug = this.getDebug()
-    this.debug = debug
 
     // env-specific initialization logic for debug instances
-    if (typeof env.init == 'function') {
-      env.init(debug)
+    if (typeof this.init == 'function') {
+      this.init(debug)
     }
 
     this.instances.push(debug)
+    return debug
   }
 
   /**
@@ -49,7 +51,7 @@ class Debug {
   getDebug() {
     const formatters = this.formatters
     const formatArgs = this.formatArgs
-    const log = this.log
+    const log = this.log // comes from the env
 
     /** @type {number} */
     let prevTime
@@ -152,8 +154,8 @@ class Debug {
       instance.enabled = this.enabled(instance.namespace)
     }
   }
-  destroy() {
-    const index = this.instances.indexOf(this)
+  destroy(debug) {
+    const index = this.instances.indexOf(debug)
     if (index !== -1) {
       this.instances.splice(index, 1)
       return true
@@ -199,15 +201,14 @@ class Debug {
 
     return false
   }
-  /**
-   * // hm
-   * @param {string} namespace
-   */
-  extend(namespace, delimiter) {
-    const newDebug = new Debug(this.namespace + (delimiter === undefined ? ':' : delimiter) + namespace)
-    newDebug.log = this.log
-    return newDebug
-  }
+}
+
+/**
+ * @param {string} namespace
+ * @this {_debug.DebugContext}
+ */
+function extend(namespace, delimiter) {
+
 }
 
 /**
@@ -216,30 +217,40 @@ class Debug {
  */
 export default function setup(env) {
   const instance = new Debug(env)
-  const debug = instance.debug
 
   /**
    * Creates a function to log messages.
-   * @param {string}
+   * @param {string} namespace
    */
-  return (namespace) => {
+  function createDebug(namespace) {
+    const debug = instance.createDebug()
+
     debug.namespace = namespace
     debug.useColors = env.useColors()
     debug.enabled = instance.enabled(namespace)
     debug.color = instance.selectColor(namespace)
-    debug.destroy = instance.destroy.bind(instance)
-    debug.extend = instance.extend.bind(instance)
+    /** @this {_debug.DebugContext} */
+    debug.destroy = function() {
+      instance.destroy(this)
+    }
+    /** @this {_debug.DebugContext} */
+    debug.extend = function(ns, delimiter) {
+      const newDebug = (this.namespace + (delimiter === undefined ? ':' : delimiter) + ns)
+      newDebug.log = this.log // don't know why this is here
+      return newDebug
+    }
 
     instance.enable(env.load())
 
     return debug
   }
+  return createDebug
 }
 
 /**
  * Convert regexp to namespace.
  *
- * @param {!RegExp} regxep
+ * @param {!RegExp} regexp
  * @return {string} namespace
  * @private
  */
@@ -263,14 +274,14 @@ function coerce(val) {
 }
 
 /**
- * @suppress {nonStandardJsDoc}
+ * @suppress {nonStandardJsDocs}
  * @typedef {import('.').Env} _debug.Env
  */
 /**
- * @suppress {nonStandardJsDoc}
+ * @suppress {nonStandardJsDocs}
  * @typedef {import('.').DebugFunction} _debug.DebugFunction
  */
 /**
- * @suppress {nonStandardJsDoc}
+ * @suppress {nonStandardJsDocs}
  * @typedef {import('.').DebugContext} _debug.DebugContext
  */
