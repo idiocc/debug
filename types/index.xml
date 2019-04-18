@@ -1,10 +1,59 @@
-<types>
-  <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
+<types namespace="_debug">
+  <type name="Env" desc="An environment.">
+    <prop type="!Function" name="init">
+      Env-specific initialization logic for `debug` instances.
     </prop>
-    <prop string name="text">
-      A text to return.
+    <prop type="!Function" name="log">
+      The logging function.
     </prop>
+    <prop type="function(this:_debug.DebugContext, !Array)" name="formatArgs">
+      Apply env-specific formatting (colors, etc.).
+    </prop>
+    <prop type="!Function" name="save">
+      Save `namespaces`.
+    </prop>
+    <prop type="!Function" name="load">
+      Load `namespaces`.
+    </prop>
+    <prop type="!Function" name="useColors">
+      Is stdout a TTY? Colored output is enabled when `true`.
+    </prop>
+    <prop type="!Array<number>" name="colors">
+      The array of supported colors.
+    </prop>
+    <prop type="!Object<string, *>" name="inspectOpts">
+      The options from the env variables, e.g., `DEBUG_COLORS=no DEBUG_DEPTH=10 DEBUG_SHOW_HIDDEN=enabled node script.js`.
+    </prop>
+  </type>
+  <type name="DebugContext">
+    <prop string name="namespace">
+      The namespace for which the debug was setup.
+    </prop>
+    <prop boolean name="enabled">
+      Whether the debug function is enabled.
+    </prop>
+    <prop boolean name="useColors">
+      If the environment uses colors.
+    </prop>
+    <prop number name="diff">
+      The diff between the prev time and current time.
+    </prop>
+    <prop number name="prev">
+      The previous time.
+    </prop>
+    <prop number name="curr">
+      The current time.
+    </prop>
+    <prop type="number|string" name="color">
+      The color for the namespace.
+    </prop>
+    <prop type="!Function" name="destroy">
+      Removes the debug function from the namespace.
+    </prop>
+    <prop type="!Function" name="extend">
+      Using the debug function, creates a new one.
+    </prop>
+  </type>
+  <type type="function(...*)" name="DebugFunction" desc="The setup debug function.">
   </type>
 </types>
