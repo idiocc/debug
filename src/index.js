@@ -14,6 +14,23 @@ export default function(namespace) {
 /* typal types/index.xml */
 /**
  * @suppress {nonStandardJsDocs}
+ * @typedef {_debug.Env} Env An environment.
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {Object} _debug.Env An environment.
+ * @prop {function(_debug.DebugFunction)} init Env-specific initialization logic for `debug` instances.
+ * @prop {function(...*)} log The logging function.
+ * @prop {function(this:_debug.DebugFunction, !Array)} formatArgs Apply env-specific formatting (colors, etc.).
+ * @prop {!Function} save Save `namespaces`.
+ * @prop {!Function} load Load `namespaces`.
+ * @prop {Object<string, function(!Object): string>} formatters Map of special "%n" handling functions, for the debug "format" argument. Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+ * @prop {!Function} useColors Is stdout a TTY? Colored output is enabled when `true`.
+ * @prop {!Array<number>} colors The array of supported colors.
+ * @prop {!Object<string, *>} inspectOpts The options from the env variables, e.g., `DEBUG_COLORS=no DEBUG_DEPTH=10 DEBUG_SHOW_HIDDEN=enabled node script.js`.
+ */
+/**
+ * @suppress {nonStandardJsDocs}
  * @typedef {_debug.DebugContext} DebugContext
  */
 /**
@@ -25,25 +42,10 @@ export default function(namespace) {
  * @prop {number} diff The diff between the prev time and current time.
  * @prop {number} prev The previous time.
  * @prop {number} curr The current time.
+ * @prop {function(...*)} [log] The manually set logging function that overrides the environment log function.
  * @prop {(number|string)} color The color for the namespace.
- * @prop {function(this:_debug.DebugContext): boolean} destroy Removes the debug function from the namespace.
- * @prop {function(this:_debug.DebugContext, string, string): _debug.DebugFunction} extend Using the debug function, creates a new one.
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {_debug.Env} Env An environment.
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {Object} _debug.Env An environment.
- * @prop {!Function} init Env-specific initialization logic for `debug` instances.
- * @prop {!Function} log The logging function.
- * @prop {function(this:_debug.DebugFunction, !Array)} formatArgs Apply env-specific formatting (colors, etc.).
- * @prop {!Function} save Save `namespaces`.
- * @prop {!Function} load Load `namespaces`.
- * @prop {!Function} useColors Is stdout a TTY? Colored output is enabled when `true`.
- * @prop {!Array<number>} colors The array of supported colors.
- * @prop {!Object<string, *>} inspectOpts The options from the env variables, e.g., `DEBUG_COLORS=no DEBUG_DEPTH=10 DEBUG_SHOW_HIDDEN=enabled node script.js`.
+ * @prop {function(this:_debug.DebugFunction): boolean} destroy Removes the debug function from the namespace.
+ * @prop {function(this:_debug.DebugFunction, string, string): _debug.DebugFunction} extend Using the debug function, creates a new one.
  */
 /**
  * @suppress {nonStandardJsDocs}

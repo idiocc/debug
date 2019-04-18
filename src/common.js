@@ -11,6 +11,8 @@ class Debug {
     this.save = env.save
     this.init = env.init
 
+    this.formatters = env.formatters || {}
+
     /**
      * Active `debug` instances.
      * @type {Array<_debug.DebugFunction>}
@@ -26,12 +28,6 @@ class Debug {
      * @type {Array<!RegExp>}
 	   */
     this.skips = []
-
-    /**
-     * Map of special "%n" handling functions, for the debug "format" argument.
-     * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
-     */
-    this.formatters = {}
   }
   createDebug() {
     const debug = this.getDebug()
@@ -78,12 +74,12 @@ class Debug {
       let index = 0
       args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
         // If we encounter an escaped % then don't increase the array index
-        if (match === '%%') {
+        if (match == '%%') {
           return match
         }
         index++
         const formatter = formatters[format]
-        if (typeof formatter === 'function') {
+        if (formatter) {
           const val = args[index]
           match = formatter.call(debug, val)
 

@@ -1,5 +1,5 @@
 import tty from 'tty'
-import util from 'util'
+import { inspect } from 'util'
 import humanize from 'ms'
 
 const ms = humanize.default
@@ -37,20 +37,6 @@ const inspectOpts = Object.keys(process.env).filter(key => {
   obj[prop] = val
   return obj
 }, {})
-
-/** @type {_debug.Env} */
-const NodeEnv = {
-  init,
-  log,
-  formatArgs,
-  save,
-  load,
-  useColors,
-  colors,
-  inspectOpts,
-}
-
-export default NodeEnv
 
 /**
  * Is stdout a TTY? Colored output is enabled when `true`.
@@ -127,30 +113,52 @@ function load() {
  */
 
 function init(debug) {
-  debug.inspectOpts = {}
-
-  const keys = Object.keys(inspectOpts)
-  for (let i = 0; i < keys.length; i++) {
-    debug.inspectOpts[keys[i]] = inspectOpts[keys[i]]
-  }
+  debug.inspectOpts = { ...inspectOpts }
 }
 
-// /**
-//  * Map %o to `util.inspect()`, all on a single line.
-//  */
-// formatters.o = function (v) {
-//   this.inspectOpts.colors = this.useColors
-//   return util.inspect(v, this.inspectOpts)
-//     .replace(/\s*\n\s*/g, ' ')
-// }
+/**
+ * Map %o to `util.inspect()`, all on a single line.
+ * @param {Object} v
+ * @this {_debug.DebugFunction}
+ */
+const o = function(v) {
+  const opts = {
+    ...this.inspectOpts,
+    colors: this.useColors,
+  }
+  return inspect(v, opts)
+    .replace(/\s*\n\s*/g, ' ')
+}
 
-// /**
-//  * Map %O to `util.inspect()`, allowing multiple lines if needed.
-//  */
-// formatters.O = function (v) {
-//   this.inspectOpts.colors = this.useColors
-//   return util.inspect(v, this.inspectOpts)
-// }
+/**
+ * Map %O to `util.inspect()`, allowing multiple lines if needed.
+ * @param {Object} v
+ * @this {_debug.DebugFunction}
+ */
+const O = function(v) {
+  const opts = {
+    ...this.inspectOpts,
+    colors: this.useColors,
+  }
+  return inspect(v, opts)
+}
+
+const formatters = { 'o': o, 'O': O }
+
+/** @type {_debug.Env} */
+const NodeEnv = {
+  init,
+  log,
+  formatArgs,
+  save,
+  load,
+  useColors,
+  colors,
+  inspectOpts,
+  formatters,
+}
+
+export default NodeEnv
 
 /**
  * @suppress {nonStandardJsDocs}
