@@ -4,8 +4,14 @@
 
 ## Copyright
 
-(c) [Idio][1] 2019
+Original Authors:
 
-[1]: https://idio.cc
+- TJ Holowaychuk
+- Nathan Rajlich
+- Andrew Rhyne
+
+---
+
+<IdioFooter />
 
 %~ -1%
