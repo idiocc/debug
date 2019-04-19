@@ -8,18 +8,17 @@ import debug from '@idio/debug'
 
 %~%
 
-```## debug
+```## debug => debugFunction
 [
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
+  ["namespace", "string"]
 ]
 ```
 
-Call this function to get the result you want.
+Creates a debug function for the given namespace.
 
 %TYPEDEF types/index.xml%
 
 %EXAMPLE: example, ../src => @idio/debug%
-%FORK example%
+%FORKERR example%
 
 %~%

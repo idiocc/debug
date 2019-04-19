@@ -2,7 +2,7 @@
   "name": "@idio/debug",
   "version": "0.0.0-pre",
   "description": "The Fork Of Debug For Node That Uses Modern JS.",
-  "main": "build/index.js",
+  "main": "depack/index_.js",
   "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
@@ -12,7 +12,7 @@
     "depack": "GOOGLE_CLOSURE_COMPILER=/Volumes/backup/closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar depack-dev depack -l -a -p -o depack/index_.js --externs externs.js --hide_warnings_for node_modules/ms",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
-    "doc": "NODE_DEBUG=doc doc documentary -o README.md",
+    "doc": "DEBUG=example NODE_DEBUG=doc doc-dev documentary -o README.md",
     "b": "alamode src -o build -s",
     "d": "yarn-s d1 externs",
     "d1": "typal src/index.js -c",
@@ -21,7 +21,7 @@
     "e": "alanode"
   },
   "files": [
-    "build",
+    "depack",
     "src",
     "externs.js"
   ],

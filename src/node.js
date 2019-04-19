@@ -1,8 +1,8 @@
 import tty from 'tty'
-import { inspect } from 'util'
+import { inspect, format } from 'util'
 import humanize from 'ms'
 
-const ms = humanize.default
+const ms = humanize.default || humanize
 
 const colors = [6, 2, 3, 4, 5, 1]
 
@@ -78,7 +78,7 @@ function getDate() {
  * Invokes `util.format()` with the specified arguments and writes to stderr.
  */
 function log(...args) {
-  return process.stderr.write(util.format(...args) + '\n')
+  return process.stderr.write(format(...args) + '\n')
 }
 
 /**
