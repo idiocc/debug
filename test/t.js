@@ -1,4 +1,4 @@
-import debug from './index_'
+import debug from '../'
 
 const d = debug('t')
 const o = {
