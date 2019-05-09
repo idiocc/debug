@@ -1,13 +1,14 @@
 MIT License
 
 Additional Work
-
 Copyright (c) 2019 Art Deco Code Limited
 
  + updating to using the ES6 modules
 
-Original Work
+ms package
+Copyright (c) 2016 Zeit, Inc.
 
+Original Work
 Copyright (c) 2014 TJ Holowaychuk <tj@vision-media.ca>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software

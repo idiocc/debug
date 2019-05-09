@@ -1,8 +1,6 @@
 import tty from 'tty'
 import { inspect, format } from 'util'
-import humanize from 'ms'
-
-const ms = humanize.default || humanize
+import ms from './ms'
 
 const colors = [6, 2, 3, 4, 5, 1]
 

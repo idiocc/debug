@@ -2,20 +2,26 @@
 let DEPACK_EXPORT;
 const tty = require('tty');
 const util = require('util');'use strict';
-var n = {default:function(a, b) {
-  b = b || {};
-  var c = typeof a;
-  if ("string" === c && 0 < a.length) {
-    return h(a);
+var h = tty;
+const {format:k, inspect:n} = util;
+/*
+
+ Copyright (c) 2016 Zeit, Inc.
+ https://npmjs.org/ms
+*/
+function r(a) {
+  var b = {}, c = typeof a;
+  if ("string" == c && 0 < a.length) {
+    return t(a);
   }
-  if ("number" === c && !1 === isNaN(a)) {
-    return b.f ? (b = Math.abs(a), a = 864E5 <= b ? k(a, b, 864E5, "day") : 36E5 <= b ? k(a, b, 36E5, "hour") : 6E4 <= b ? k(a, b, 6E4, "minute") : 1000 <= b ? k(a, b, 1000, "second") : a + " ms") : (b = Math.abs(a), a = 864E5 <= b ? Math.round(a / 864E5) + "d" : 36E5 <= b ? Math.round(a / 36E5) + "h" : 6E4 <= b ? Math.round(a / 6E4) + "m" : 1000 <= b ? Math.round(a / 1000) + "s" : a + "ms"), a;
+  if ("number" == c && isFinite(a)) {
+    return b.f ? (b = Math.abs(a), a = 864E5 <= b ? u(a, b, 864E5, "day") : 36E5 <= b ? u(a, b, 36E5, "hour") : 6E4 <= b ? u(a, b, 6E4, "minute") : 1000 <= b ? u(a, b, 1000, "second") : a + " ms") : (b = Math.abs(a), a = 864E5 <= b ? Math.round(a / 864E5) + "d" : 36E5 <= b ? Math.round(a / 36E5) + "h" : 6E4 <= b ? Math.round(a / 6E4) + "m" : 1000 <= b ? Math.round(a / 1000) + "s" : a + "ms"), a;
   }
   throw Error("val is not a non-empty string or a valid number. val=" + JSON.stringify(a));
-}};
-function h(a) {
+}
+function t(a) {
   a = String(a);
-  if (!(100 < a.length) && (a = /^((?:\d+)?\-?\d?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(a))) {
+  if (!(100 < a.length) && (a = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(a))) {
     var b = parseFloat(a[1]);
     switch((a[2] || "ms").toLowerCase()) {
       case "years":
@@ -59,51 +65,49 @@ function h(a) {
     }
   }
 }
-function k(a, b, c, d) {
+function u(a, b, c, d) {
   return Math.round(a / c) + " " + d + (b >= 1.5 * c ? "s" : "");
 }
-;var r = tty;
-const {format:t, inspect:u} = util;
-const v = n.default || n, w = Object.keys(process.env).filter(a => /^debug_/i.test(a)).reduce((a, b) => {
+;const v = Object.keys(process.env).filter(a => /^debug_/i.test(a)).reduce((a, b) => {
   const c = b.substring(6).toLowerCase().replace(/_([a-z])/g, (d, f) => f.toUpperCase());
   b = process.env[b];
   /^(yes|on|true|enabled)$/i.test(b) ? b = !0 : /^(no|off|false|disabled)$/i.test(b) ? b = !1 : "null" === b ? b = null : b = Number(b);
   a[c] = b;
   return a;
-}, {}), x = {init:function(a) {
-  a.inspectOpts = Object.assign({}, w);
+}, {}), w = {init:function(a) {
+  a.inspectOpts = Object.assign({}, v);
 }, log:function(...a) {
-  return process.stderr.write(t(...a) + "\n");
+  return process.stderr.write(k(...a) + "\n");
 }, formatArgs:function(a) {
   const {namespace:b, useColors:c, color:d, diff:f} = this;
   if (c) {
     const g = "\u001b[3" + (8 > d ? d : "8;5;" + d), e = `  ${g};1m${b} \u001B[0m`;
     a[0] = e + a[0].split("\n").join("\n" + e);
-    a.push(g + "m+" + v(f) + "\u001b[0m");
+    a.push(g + "m+" + r(f) + "\u001b[0m");
   } else {
-    a[0] = (w.hideDate ? "" : (new Date).toISOString() + " ") + b + " " + a[0];
+    a[0] = (v.hideDate ? "" : (new Date).toISOString() + " ") + b + " " + a[0];
   }
 }, save:function(a) {
   a ? process.env.DEBUG = a : delete process.env.DEBUG;
 }, load:function() {
   return process.env.DEBUG;
 }, useColors:function() {
-  return "colors" in w ? !!w.colors : r.isatty(process.stderr.fd);
-}, colors:[6, 2, 3, 4, 5, 1], inspectOpts:w, formatters:{o:function(a) {
+  return "colors" in v ? !!v.colors : h.isatty(process.stderr.fd);
+}, colors:[6, 2, 3, 4, 5, 1], inspectOpts:v, formatters:{o:function(a) {
   const b = Object.assign({}, this.inspectOpts, {colors:this.useColors});
-  return u(a, b).replace(/\s*\n\s*/g, " ");
+  return n(a, b).replace(/\s*\n\s*/g, " ");
 }, O:function(a) {
   const b = Object.assign({}, this.inspectOpts, {colors:this.useColors});
-  return u(a, b);
+  return n(a, b);
 }}};
-function y(a) {
+function x(a) {
   function b(...e) {
     if (b.enabled) {
       var p = Number(new Date);
       b.diff = p - (g || p);
       b.prev = g;
       g = b.curr = p;
-      e[0] = z(e[0]);
+      e[0] = y(e[0]);
       "string" != typeof e[0] && e.unshift("%O");
       var l = 0;
       e[0] = e[0].replace(/%([a-zA-Z%])/g, (m, q) => {
@@ -124,21 +128,21 @@ function y(a) {
   let g;
   return b;
 }
-function A(a) {
-  const b = y(a);
+function z(a) {
+  const b = x(a);
   "function" == typeof a.init && a.init(b);
   a.a.push(b);
   return b;
 }
-function B(a, b) {
+function A(a, b) {
   let c = 0;
   for (let d = 0; d < b.length; d++) {
     c = (c << 5) - c + b.charCodeAt(d), c |= 0;
   }
   return a.colors[Math.abs(c) % a.colors.length];
 }
-function C(a) {
-  var b = x.load();
+function B(a) {
+  var b = w.load();
   a.save(b);
   a.b = [];
   a.c = [];
@@ -151,7 +155,7 @@ function C(a) {
     b = a.a[c], b.enabled = a.enabled(b.namespace);
   }
 }
-class D {
+class C {
   constructor(a) {
     this.colors = a.colors;
     this.formatArgs = a.formatArgs;
@@ -188,14 +192,14 @@ class D {
     return !1;
   }
 }
-function E() {
-  const a = new D(x);
+function D() {
+  const a = new C(w);
   return function(b) {
-    const c = A(a);
+    const c = z(a);
     c.namespace = b;
-    c.useColors = x.useColors();
+    c.useColors = w.useColors();
     c.enabled = a.enabled(b);
-    c.color = B(a, b);
+    c.color = A(a, b);
     c.destroy = function() {
       a.destroy(this);
     };
@@ -204,15 +208,15 @@ function E() {
       d.log = this.log;
       return d;
     };
-    C(a);
+    B(a);
     return c;
   };
 }
-function z(a) {
+function y(a) {
   return a instanceof Error ? a.stack || a.message : a;
 }
 ;DEPACK_EXPORT = function(a) {
-  return E()(a);
+  return D()(a);
 };
 
 
