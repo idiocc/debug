@@ -1,3 +1,9 @@
+## 9 May 2019
+
+### [1.1.1](https://github.com/idiocc/debug/compare/v1.1.0...v1.1.1)
+
+- [deps] Bundle up `ms`.
+
 ## 7 May 2019
 
 ### [1.1.0](https://github.com/idiocc/debug/compare/v1.0.0...v1.1.0)
