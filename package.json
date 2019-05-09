@@ -1,6 +1,6 @@
 {
   "name": "@idio/debug",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "The Fork Of Debug For Node.JS Written In ES6 And Optimised With JavaScript Compiler.",
   "main": "depack/index.js",
   "module": "src/index.js",
