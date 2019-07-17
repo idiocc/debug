@@ -43,8 +43,8 @@ log('hello')
 log('world')
 ```
 ```
-2019-07-17T12:46:39.734Z example hello
-2019-07-17T12:46:39.738Z example world
+example hello +0ms
+  example world +4ms
 ```
 
 <details>
@@ -108,8 +108,8 @@ debug('hello %O', { test: 'ok' })
 debug('world %f', 105248)
 ```
 ```
-2019-07-17T12:46:40.416Z example hello { test: 'ok' }
-2019-07-17T12:46:40.421Z example world 102.78KB
+example hello { test: 'ok' } +0ms
+  example world 102.78KB +16ms
 ```
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
