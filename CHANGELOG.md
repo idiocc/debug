@@ -1,5 +1,9 @@
 ## 17 July 2019
 
+### [1.2.1](https://github.com/idiocc/debug/compare/v1.2.0...v1.2.1)
+
+- [fix] Correct file size formatters (plain & with color).
+
 ### [1.2.0](https://github.com/idiocc/debug/compare/v1.1.1...v1.2.0)
 
 - [feature] File size formatters.
