@@ -12,7 +12,7 @@
     "compile": "depack-dev src/depack.js -l -a -p -o compile/debug.js",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
-    "doc": "DEBUG=example NODE_DEBUG=doc doc-dev documentary -o README.md",
+    "doc": "DEBUG=example NODE_DEBUG=doc doc -o README.md",
     "b": "alamode src -o build -s",
     "d": "yarn-s d1 externs",
     "d1": "typal types/index.js",

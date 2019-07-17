@@ -12,6 +12,6 @@ Original Authors:
 
 ---
 
-<IdioFooter />
+<idio-footer />
 
 %~ -1%

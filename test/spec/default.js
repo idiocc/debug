@@ -1,4 +1,4 @@
-import { equal, ok } from 'zoroaster/assert'
+import { equal, ok } from '@zoroaster/assert'
 import Context from '../context'
 import debug from '../../src'
 
@@ -9,14 +9,14 @@ const T = {
     equal(typeof debug, 'function')
   },
   async 'calls package without error'() {
-    await debug()
+    const d = debug('test')
   },
-  async 'gets a link to the fixture'({ FIXTURE }) {
-    const res = await debug({
-      text: FIXTURE,
-    })
-    ok(res, FIXTURE)
-  },
+  // async 'gets a link to the fixture'({ FIXTURE }) {
+  //   const res = await debug({
+  //     text: FIXTURE,
+  //   })
+  //   ok(res, FIXTURE)
+  // },
 }
 
 export default T

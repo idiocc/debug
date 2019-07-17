@@ -16,9 +16,13 @@ import debug from '@idio/debug'
 
 Creates a debug function for the given namespace.
 
-%TYPEDEF types/index.xml%
-
 %EXAMPLE: example, ../src => @idio/debug%
 %FORKERR example%
+
+<details>
+<summary>Show Types</summary>
+
+%TYPEDEF types/index.xml%
+</details>
 
 %~%

@@ -6,6 +6,7 @@ import setup from './common'
  * @param {string} namespace
  */
 export default function(namespace) {
+  if (!namespace) throw new Error('To use debug, pass the namespace.')
   const node = setup(NodeEnv)
   const debug = node(namespace)
   return debug

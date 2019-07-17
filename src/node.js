@@ -1,6 +1,7 @@
 import tty from 'tty'
 import { inspect, format } from 'util'
 import ms from './ms'
+import f from './modifiers/f'
 
 const colors = [6, 2, 3, 4, 5, 1]
 
@@ -141,7 +142,7 @@ const O = function(v) {
   return inspect(v, opts)
 }
 
-const formatters = { 'o': o, 'O': O }
+const formatters = { 'o': o, 'O': O, ...f }
 
 /** @type {_debug.Env} */
 const NodeEnv = {
