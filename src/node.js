@@ -51,9 +51,9 @@ function useColors() {
  * @this {_debug.DebugFunction}
  */
 function formatArgs(args) {
-  const { namespace, useColors, color, diff } = this
+  const { namespace, useColors: uc, color, diff } = this
 
-  if (useColors) {
+  if (uc) {
     const c = color
     const colorCode = '\u001B[3' + (c < 8 ? c : '8;5;' + c)
     const prefix = `  ${colorCode};1m${namespace} \u001B[0m`
@@ -160,9 +160,9 @@ export default NodeEnv
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('.').DebugFunction} _debug.DebugFunction
+ * @typedef {import('../types').DebugFunction} _debug.DebugFunction
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('.').Env} _debug.Env
+ * @typedef {import('../types').Env} _debug.Env
  */

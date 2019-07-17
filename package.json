@@ -2,30 +2,30 @@
   "name": "@idio/debug",
   "version": "1.1.1",
   "description": "The Fork Of Debug For Node.JS Written In ES6 And Optimised With JavaScript Compiler.",
-  "main": "depack/index.js",
+  "main": "compile/index.js",
   "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
-    "depack": "GOOGLE_CLOSURE_COMPILER=/Volumes/backup/closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar depack-dev src/depack.js -l -a -p -o depack --externs externs.js -S",
+    "compile": "depack-dev src/depack.js -l -a -p -o compile/debug.js",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
     "doc": "DEBUG=example NODE_DEBUG=doc doc-dev documentary -o README.md",
     "b": "alamode src -o build -s",
     "d": "yarn-s d1 externs",
-    "d1": "typal src/index.js -c",
-    "externs": "typal externs.js -e",
+    "d1": "typal types/index.js",
+    "externs": "typal types/externs.js -e",
     "build": "yarn-s d b doc",
     "e": "alanode"
   },
   "files": [
-    "depack",
+    "compile",
     "src",
-    "externs.js"
+    "types/externs.js"
   ],
-  "externs": "externs.js",
+  "externs": "types/externs.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/idiocc/debug.git"
@@ -41,10 +41,10 @@
   },
   "homepage": "https://github.com/idiocc/debug#readme",
   "devDependencies": {
-    "alamode": "^2.1.2",
-    "documentary": "^1.27.2",
+    "alamode": "^2.3.4",
+    "documentary": "^1.27.4",
     "eslint-config-artdeco": "1.0.1",
-    "typal": "^1.12.0",
+    "typal": "^1.14.0",
     "yarn-s": "1.1.0",
     "zoroaster": "^4.1.1-alpha"
   }

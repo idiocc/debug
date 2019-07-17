@@ -1,5 +1,5 @@
 <types namespace="_debug">
-  <type name="Env" desc="An environment.">
+  <type record name="Env" desc="An environment.">
     <prop type="function(_debug.DebugFunction)" name="init">
       Env-specific initialization logic for `debug` instances.
     </prop>
@@ -28,7 +28,7 @@
       The options from the env variables, e.g., `DEBUG_COLORS=no DEBUG_DEPTH=10 DEBUG_SHOW_HIDDEN=enabled node script.js`.
     </prop>
   </type>
-  <type name="DebugContext">
+  <type record name="DebugContext">
     <prop string name="namespace">
       The namespace for which the debug function was setup.
     </prop>
@@ -60,6 +60,7 @@
       Using the debug function, creates a new one.
     </prop>
   </type>
-  <type type="function(this:_debug.DebugContext, ...*) & _debug.DebugContext" name="DebugFunction" desc="The setup debug function.">
+
+  <type extends="_debug.DebugContext" type="function(this:_debug.DebugContext, ...*)" name="DebugFunction" desc="The setup debug function.">
   </type>
 </types>

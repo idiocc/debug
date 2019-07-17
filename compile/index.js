@@ -1,4 +1,4 @@
-const _Debug = require('./depack')
+const _Debug = require('./debug')
 
 /**
  * Creates a function to log messages.
