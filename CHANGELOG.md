@@ -1,5 +1,9 @@
 ## 17 July 2019
 
+### [1.2.2](https://github.com/idiocc/debug/compare/v1.2.1...v1.2.2)
+
+- [package] Publish missing 1.2.1 again.
+
 ### [1.2.1](https://github.com/idiocc/debug/compare/v1.2.0...v1.2.1)
 
 - [fix] Correct file size formatters (plain & with color).
