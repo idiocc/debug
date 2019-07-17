@@ -43,8 +43,8 @@ log('hello')
 log('world')
 ```
 ```
-2019-07-17T12:37:31.959Z example hello
-2019-07-17T12:37:31.962Z example world
+2019-07-17T12:46:39.734Z example hello
+2019-07-17T12:46:39.738Z example world
 ```
 
 <details>
@@ -96,7 +96,7 @@ The modifiers can be used to print information in formatted way.
 | %fy      | File-size in yellow.                   |
 | %fr      | File-size in red.                      |
 | %fb      | File-size in blue.                     |
-| %fg      | File-size in grey.                     |
+| %fg      | File-size in green.                    |
 | %fc      | File-size in cyan                      |
 | %fm      | File-size in magenta.                  |
 
@@ -108,8 +108,8 @@ debug('hello %O', { test: 'ok' })
 debug('world %f', 105248)
 ```
 ```
-2019-07-17T12:40:10.831Z example hello { test: 'ok' }
-2019-07-17T12:40:10.859Z example world 102.78KB
+2019-07-17T12:46:40.416Z example hello { test: 'ok' }
+2019-07-17T12:46:40.421Z example world 102.78KB
 ```
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>

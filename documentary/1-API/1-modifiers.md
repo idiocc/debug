@@ -11,7 +11,7 @@ The modifiers can be used to print information in formatted way.
   ["%fy", "File-size in yellow."],
   ["%fr", "File-size in red."],
   ["%fb", "File-size in blue."],
-  ["%fg", "File-size in grey."],
+  ["%fg", "File-size in green."],
   ["%fc", "File-size in cyan"],
   ["%fm", "File-size in magenta."]
 ]
