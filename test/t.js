@@ -8,4 +8,4 @@ const o = {
   somanynewlines: true,
   whencaniseeanewline: 'greedisgood',
 }
-d('hello %o, %O', o, o)
+d('hello %o, %O %fr', o, o, 10000000)

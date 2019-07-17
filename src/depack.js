@@ -1,4 +1,4 @@
 import '../types/externs'
 import debug from '../src'
 
-DEPACK_EXPORT = debug
+module.exports = debug

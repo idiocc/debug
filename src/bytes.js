@@ -9,12 +9,12 @@ const formatThousandsRegExp = /\B(?=(\d{3})+(?!\d))/g
 const formatDecimalsRegExp = /(?:\.0*|(\.[^0]+)0+)$/
 
 const map = {
-  b:  1,
-  kb: 1 << 10,
-  mb: 1 << 20,
-  gb: 1 << 30,
-  tb: Math.pow(1024, 4),
-  pb: Math.pow(1024, 5),
+  'b':  1,
+  'kb': 1 << 10,
+  'mb': 1 << 20,
+  'gb': 1 << 30,
+  'tb': Math.pow(1024, 4),
+  'pb': Math.pow(1024, 5),
 }
 
 const parseRegExp = /^((-|\+)?(\d+(?:\.\d+)?)) *(kb|mb|gb|tb|pb)$/i
@@ -74,15 +74,15 @@ export function format(value, options) {
   let unit = (options && options.unit) || ''
 
   if (!unit || !map[unit.toLowerCase()]) {
-    if (mag >= map.pb) {
+    if (mag >= map['pb']) {
       unit = 'PB'
-    } else if (mag >= map.tb) {
+    } else if (mag >= map['tb']) {
       unit = 'TB'
-    } else if (mag >= map.gb) {
+    } else if (mag >= map['gb']) {
       unit = 'GB'
-    } else if (mag >= map.mb) {
+    } else if (mag >= map['mb']) {
       unit = 'MB'
-    } else if (mag >= map.kb) {
+    } else if (mag >= map['kb']) {
       unit = 'KB'
     } else {
       unit = 'B'
@@ -115,11 +115,11 @@ export function format(value, options) {
  */
 
 export function parse(val) {
-  if (typeof val === 'number' && !isNaN(val)) {
+  if (typeof val == 'number' && !isNaN(val)) {
     return val
   }
 
-  if (typeof val !== 'string') {
+  if (typeof val != 'string') {
     return null
   }
 

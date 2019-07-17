@@ -1,7 +1,7 @@
+#!/usr/bin/env node
 'use strict';
-let DEPACK_EXPORT;
 const tty = require('tty');
-const util = require('util');'use strict';
+const util = require('util');             
 var h = tty;
 const {format:k, inspect:l} = util;
 /*
@@ -15,7 +15,7 @@ function m(a) {
     return n(a);
   }
   if ("number" == c && isFinite(a)) {
-    return b.v ? (b = Math.abs(a), a = 864E5 <= b ? r(a, b, 864E5, "day") : 36E5 <= b ? r(a, b, 36E5, "hour") : 6E4 <= b ? r(a, b, 6E4, "minute") : 1000 <= b ? r(a, b, 1000, "second") : a + " ms") : (b = Math.abs(a), a = 864E5 <= b ? Math.round(a / 864E5) + "d" : 36E5 <= b ? Math.round(a / 36E5) + "h" : 6E4 <= b ? Math.round(a / 6E4) + "m" : 1000 <= b ? Math.round(a / 1000) + "s" : a + "ms"), a;
+    return b.j ? (b = Math.abs(a), a = 864E5 <= b ? r(a, b, 864E5, "day") : 36E5 <= b ? r(a, b, 36E5, "hour") : 6E4 <= b ? r(a, b, 6E4, "minute") : 1000 <= b ? r(a, b, 1000, "second") : a + " ms") : (b = Math.abs(a), a = 864E5 <= b ? Math.round(a / 864E5) + "d" : 36E5 <= b ? Math.round(a / 36E5) + "h" : 6E4 <= b ? Math.round(a / 6E4) + "m" : 1000 <= b ? Math.round(a / 1000) + "s" : a + "ms"), a;
   }
   throw Error("val is not a non-empty string or a valid number. val=" + JSON.stringify(a));
 }
@@ -74,13 +74,13 @@ function r(a, b, c, d) {
  Copyright(c) 2015 Jed Watson
  MIT Licensed
 */
-const v = /\B(?=(\d{3})+(?!\d))/g, w = /(?:\.0*|(\.[^0]+)0+)$/, x = {s:1, i:1024, j:1048576, h:1073741824, m:Math.pow(1024, 4), l:Math.pow(1024, 5)};
+const v = /\B(?=(\d{3})+(?!\d))/g, w = /(?:\.0*|(\.[^0]+)0+)$/, x = {b:1, kb:1024, mb:1048576, gb:1073741824, tb:Math.pow(1024, 4), pb:Math.pow(1024, 5)};
 function y(a, b) {
   if (!Number.isFinite(a)) {
     return null;
   }
-  const c = Math.abs(a), d = b && b.w || "", f = b && b.B || "", g = b && void 0 !== b.g ? b.g : 2, e = !(!b || !b.u);
-  (b = b && b.A || "") && x[b.toLowerCase()] || (b = c >= x.l ? "PB" : c >= x.m ? "TB" : c >= x.h ? "GB" : c >= x.j ? "MB" : c >= x.i ? "KB" : "B");
+  const c = Math.abs(a), d = b && b.l || "", f = b && b.s || "", g = b && void 0 !== b.h ? b.h : 2, e = !(!b || !b.i);
+  (b = b && b.m || "") && x[b.toLowerCase()] || (b = c >= x.pb ? "PB" : c >= x.tb ? "TB" : c >= x.gb ? "GB" : c >= x.mb ? "MB" : c >= x.kb ? "KB" : "B");
   a = (a / x[b.toLowerCase()]).toFixed(g);
   e || (a = a.replace(w, "$1"));
   d && (a = a.replace(v, d));
@@ -150,7 +150,7 @@ function F(a) {
       e[0] = G(e[0]);
       "string" != typeof e[0] && e.unshift("%O");
       var p = 0;
-      e[0] = e[0].replace(/%([a-zA-Z%])/g, (q, u) => {
+      e[0] = e[0].replace(/%([a-zA-Z%]+)/g, (q, u) => {
         if ("%%" == q) {
           return q;
         }
@@ -184,12 +184,12 @@ function I(a, b) {
 function J(a) {
   var b = E.load();
   a.save(b);
-  a.b = [];
   a.c = [];
+  a.g = [];
   let c;
   const d = ("string" == typeof b ? b : "").split(/[\s,]+/), f = d.length;
   for (c = 0; c < f; c++) {
-    d[c] && (b = d[c].replace(/\*/g, ".*?"), "-" == b[0] ? a.c.push(new RegExp("^" + b.substr(1) + "$")) : a.b.push(new RegExp("^" + b + "$")));
+    d[c] && (b = d[c].replace(/\*/g, ".*?"), "-" == b[0] ? a.g.push(new RegExp("^" + b.substr(1) + "$")) : a.c.push(new RegExp("^" + b + "$")));
   }
   for (c = 0; c < a.a.length; c++) {
     b = a.a[c], b.enabled = a.enabled(b.namespace);
@@ -205,8 +205,8 @@ class K {
     this.init = a.init;
     this.formatters = a.formatters || {};
     this.a = [];
-    this.b = [];
     this.c = [];
+    this.g = [];
   }
   destroy(a) {
     a = this.a.indexOf(a);
@@ -218,14 +218,14 @@ class K {
     }
     let b, c;
     b = 0;
-    for (c = this.c.length; b < c; b++) {
-      if (this.c[b].test(a)) {
+    for (c = this.g.length; b < c; b++) {
+      if (this.g[b].test(a)) {
         return !1;
       }
     }
     b = 0;
-    for (c = this.b.length; b < c; b++) {
-      if (this.b[b].test(a)) {
+    for (c = this.c.length; b < c; b++) {
+      if (this.c[b].test(a)) {
         return !0;
       }
     }
@@ -255,7 +255,7 @@ function L() {
 function G(a) {
   return a instanceof Error ? a.stack || a.message : a;
 }
-;DEPACK_EXPORT = function(a) {
+;module.exports = function(a) {
   if (!a) {
     throw Error("To use debug, pass the namespace.");
   }
@@ -263,5 +263,4 @@ function G(a) {
 };
 
 
-module.exports = DEPACK_EXPORT
 //# sourceMappingURL=debug.js.map

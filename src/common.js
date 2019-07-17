@@ -72,7 +72,7 @@ class Debug {
 
       // Apply any `formatters` transformations
       let index = 0
-      args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
+      args[0] = args[0].replace(/%([a-zA-Z%]+)/g, (match, format) => {
         // If we encounter an escaped % then don't increase the array index
         if (match == '%%') {
           return match
